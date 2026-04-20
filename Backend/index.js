@@ -17,9 +17,12 @@ const app = express()
 // Middleware
 app.use(express.json())
 app.use(cors({
-    origin: "http://localhost:5173", // ✅ your frontend URL
-    credentials: true                // ✅ allow cookies
-}));
+  origin: [
+    "http://localhost:5173",
+    "https://pragati-furniture-frontend.onrender.com"
+  ],
+  credentials: true
+}))
 app.use(cookieParser())
 
 // ✅ Serve images
