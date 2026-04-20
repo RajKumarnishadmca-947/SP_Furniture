@@ -9,6 +9,7 @@ const url = import.meta.env.VITE_API_URL;
 
 
 const SeeProducts = () => {
+
   const [products, setProducts] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
   const [search, setSearch] = useState("")
@@ -63,12 +64,10 @@ const SeeProducts = () => {
     return
   }
 
-  setLoadingCart(product.id)
+  setLoadingCart(product._id)
 
   try {
-    const { data } = await axios.post(
-      "`${url}/api/addcart",
-      {
+    const { data } = await axios.post(`${url}/api/addcart`,{
         pid: product._id,
         uid: user.id, // ✅ FIXED
         title: product.ptitle,
@@ -90,9 +89,7 @@ const SeeProducts = () => {
   const handlePopular = async (id) => {
     setLoadingPopular(id)
     try {
-      await axios.put(
-        `${url}/api/products/popular/${id}`
-      )
+      await axios.put(`${url}/api/products/popular/${id}`)
       toast.success("Added to Popular")
     } catch (err) {
       console.error("Popular error:", err)
@@ -108,9 +105,7 @@ const SeeProducts = () => {
     if (!confirmDelete) return
 
     try {
-      await axios.delete(
-        `${url}/api/products/deleteproduct/${id}`
-      )
+      await axios.delete(`${url}/api/products/deleteproduct/${id}`)
 
       const updated = products.filter(item => item._id !== id)
       setProducts(updated)
