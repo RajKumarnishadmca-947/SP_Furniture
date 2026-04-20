@@ -5,6 +5,9 @@ import { AuthContext } from "./AuthContext"
 import { toast } from "react-toastify"
 import "../CSS/SeeProducts.css"
 
+const url = import.meta.env.VITE_API_URL;
+
+
 const SeeProducts = () => {
   const [products, setProducts] = useState([])
   const [filteredProducts, setFilteredProducts] = useState([])
@@ -21,9 +24,7 @@ const SeeProducts = () => {
   const fetchProducts = useCallback(async () => {
     setLoading(true)
     try {
-      const { data } = await axios.get(
-        "http://localhost:5000/api/products/getproducts"
-      )
+      const { data } = await axios.get(`${url}/api/products/getproducts`)
       setProducts(data || [])
       setFilteredProducts(data || []) // ✅ important
     } catch (err) {
@@ -66,7 +67,7 @@ const SeeProducts = () => {
 
   try {
     const { data } = await axios.post(
-      "http://localhost:5000/api/addcart",
+      "`${url}/api/addcart",
       {
         pid: product._id,
         uid: user.id, // ✅ FIXED
@@ -90,7 +91,7 @@ const SeeProducts = () => {
     setLoadingPopular(id)
     try {
       await axios.put(
-        `http://localhost:5000/api/products/popular/${id}`
+        `${url}/api/products/popular/${id}`
       )
       toast.success("Added to Popular")
     } catch (err) {
@@ -108,7 +109,7 @@ const SeeProducts = () => {
 
     try {
       await axios.delete(
-        `http://localhost:5000/api/products/deleteproduct/${id}`
+        `${url}/api/products/deleteproduct/${id}`
       )
 
       const updated = products.filter(item => item._id !== id)
@@ -145,7 +146,7 @@ const SeeProducts = () => {
           {filteredProducts.map((item) => (
             <div key={item._id} className="km-card">
               <img
-                src={`http://localhost:5000/productsImages/${item.pimage}`}
+                src={`${url}/productsImages/${item.pimage}`}
                 alt={item.ptitle}
                 className="product-img"
               />

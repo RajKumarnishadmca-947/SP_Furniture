@@ -3,6 +3,9 @@ import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios"
 import { toast } from "react-toastify"
 
+const url = import.meta.env.VITE_API_URL;
+
+
 const ResetPassword = () => {
   const location = useLocation()
   const navigate = useNavigate()
@@ -14,10 +17,7 @@ const ResetPassword = () => {
 
   const handleReset = async () => {
     try {
-      const res = await axios.post(
-        "http://localhost:5000/users/reset-password",
-        { email, otp, newPassword: password }
-      )
+      const res = await axios.post(`${url}/users/reset-password`,{ email, otp, newPassword: password })
 
       toast.success(res.data.msg)
       navigate("/login")

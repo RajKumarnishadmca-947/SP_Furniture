@@ -4,6 +4,9 @@ import { AuthContext } from "./AuthContext"
 import { useNavigate } from "react-router-dom"
 import "../CSS/UserOrder.css"
 
+const url = import.meta.env.VITE_API_URL;
+
+
 const UserOrder = () => {
   const navigate = useNavigate()
   const { user } = useContext(AuthContext)
@@ -15,7 +18,7 @@ const fetchOrders = async () => {
 
   try {
     const res = await axios.get(
-      `http://localhost:5000/api/order/user/${user.id}`
+      `${url}/api/order/user/${user.id}`
     )
     setOrders(res.data)
   } catch (err) {
@@ -35,7 +38,7 @@ const cancelOrder = async (id) => {
   if (!confirmCancel) return
 
   try {
-    await axios.put(`http://localhost:5000/api/order/cancel/${id}`)
+    await axios.put(`${url}/api/order/cancel/${id}`)
     fetchOrders()
   } catch (err) {
     console.log("Cancel Error:", err)
@@ -52,7 +55,7 @@ const removeItem = async (orderId, index) => {
 
   try {
     await axios.put(
-      `http://localhost:5000/api/order/remove-item/${orderId}`,
+      `${url}/api/order/remove-item/${orderId}`,
       { index }
     )
 
@@ -130,7 +133,7 @@ const goToProduct = (pid) => {
           <div key={i} className="uo-item">
 
             <img
-              src={`http://localhost:5000/productsImages/${item.img}`}
+              src={`${url}/productsImages/${item.img}`}
               alt={item.title}
             />
 

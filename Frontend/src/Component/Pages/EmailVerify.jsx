@@ -4,6 +4,8 @@ import axios from "axios"
 import {toast} from "react-toastify"
 import "../CSS/EmailVerify.css"
 
+const url = import.meta.env.VITE_API_URL;
+
 const EmailVerify=()=> {
   const [otp,setOtp]=useState("")
   const location=useLocation()
@@ -13,7 +15,7 @@ const EmailVerify=()=> {
 
   const handleVerify=async()=>{
     try {
-      const res=await axios.post("http://localhost:5000/users/verify-otp",{email,otp})
+      const res=await axios.post(`${url}/users/verify-otp`,{email,otp})
       toast.success(res.data.msg)
       navigate("/login")
 
@@ -24,7 +26,7 @@ const EmailVerify=()=> {
 
   const resendOtp=async()=>{
     try {
-      await axios.post("http://localhost:5000/users/send-otp", { email })
+      await axios.post(`${url}/users/send-otp`, { email })
       toast.success("OTP resent")
     } catch {
       toast.error("Failed to resend OTP")

@@ -3,6 +3,8 @@ import { NavLink, useNavigate } from 'react-router-dom'
 import axios from 'axios'
 import { AuthContext } from '../Pages/AuthContext'
 import "./Navbar.css"
+const url = import.meta.env.VITE_API_URL;
+
 
 const Navbar = () => {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -17,7 +19,7 @@ const Navbar = () => {
       try {
         if (user?.id) {
           const res = await axios.get(
-            `http://localhost:5000/api/cart/${user.id}`
+            `${url}/api/cart/${user.id}`
           )
 
           if (isMounted) {
@@ -48,7 +50,7 @@ const Navbar = () => {
   const handleLogout = async () => {
     try {
       await axios.post(
-        "http://localhost:5000/users/logout",
+        "`${url}/users/logout",
         {},
         { withCredentials: true }
       )

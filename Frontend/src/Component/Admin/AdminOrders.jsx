@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import axios from "axios"
 import "./AdminOrders.css"
+const url = import.meta.env.VITE_API_URL;
+
 
 const AdminOrders = () => {
   const [orders, setOrders] = useState([])
@@ -12,7 +14,7 @@ const AdminOrders = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/order/all")
+      const res = await axios.get(`${url}/api/order/all`)
       setOrders(res.data)
     } catch (err) {
       console.log(err)
@@ -44,7 +46,7 @@ const AdminOrders = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:5000/api/order/status/${id}`, { status })
+      await axios.put(`${url}/api/order/status/${id}`, { status })
       fetchOrders()
     } catch (err) {
       console.log(err)
@@ -113,7 +115,7 @@ const AdminOrders = () => {
                     {order.items.map((item, i) => (
                       <div key={i} className="item-box">
                         <img
-                          src={`http://localhost:5000/productsImages/${item.img}`}
+                          src={`${url}/productsImages/${item.img}`}
                           alt={item.title}
                         />
                         <span>{item.title} (x{item.qty})</span>

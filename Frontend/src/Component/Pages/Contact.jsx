@@ -4,6 +4,8 @@ import axios from 'axios'
 import "../CSS/Contact.css"
 import { AuthContext } from './AuthContext'
 
+const url = import.meta.env.VITE_API_URL;
+
 const Contact = () => {
   const {user}=useContext(AuthContext);
 
@@ -16,8 +18,7 @@ const Contact = () => {
     const handleSubmit = async (e) => {
   e.preventDefault()
   try {
-    const res = await axios.post(
-      "http://localhost:5000/api/contacts/addcontact",
+    const res = await axios.post(`${url}/api/contacts/addcontact`,
       contForm
     )
 

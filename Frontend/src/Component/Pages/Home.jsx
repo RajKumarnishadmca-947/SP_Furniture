@@ -7,6 +7,9 @@ import { AuthContext } from "./AuthContext";
 import { useContext } from "react";
 import {toast} from "react-toastify";
 
+const url = import.meta.env.VITE_API_URL;
+
+
 
 const Home = () => {
 
@@ -16,7 +19,7 @@ const Home = () => {
 
   useEffect(()=>{
     const getPopular=async()=>{
-      const res=await axios.get("http://localhost:5000/api/products/getproducts")
+      const res=await axios.get(`${url}/api/products/getproducts`)
 
          // filter only popular
       const filtered = res.data.filter(p => p.isPopular)
@@ -48,7 +51,7 @@ const Home = () => {
   // Delete product from Popular Products
 const removeFromPopular = async (id) => {
   try {
-    await axios.put(`http://localhost:5000/api/products/remove-popular/${id}`);
+    await axios.put(`${url}/api/products/remove-popular/${id}`);
 
     const updated = popular.filter((item) => item._id !== id);
     setPopular(updated);
@@ -98,7 +101,7 @@ const removeFromPopular = async (id) => {
         <div className="product-grid">
           {popular.map((item) => (
             <div key={item._id} className="card">
-              <img src={`http://localhost:5000/productsImages/${item.pimage}`} alt={item.ptitle}/>
+              <img src={`${url}/productsImages/${item.pimage}`} alt={item.ptitle}/>
               <h4>{item.ptitle}</h4>
               <p>₹{item.pprice}</p>
 

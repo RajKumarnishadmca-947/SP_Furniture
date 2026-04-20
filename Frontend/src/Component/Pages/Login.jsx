@@ -5,6 +5,8 @@ import axios from 'axios'
 import { AuthContext } from './AuthContext'
 import '../CSS/Login.css'
 
+const url = import.meta.env.VITE_API_URL;
+
 const Login = () => {
     const [form, setForm] = useState({ email: "", password: "" })
     const { setUser } = useContext(AuthContext)
@@ -17,11 +19,7 @@ const Login = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         try {
-            const res = await axios.post(
-                "http://localhost:5000/users/login",
-                form,
-                { withCredentials: true }
-            )
+            const res = await axios.post(`${url}/users/login`,form,{ withCredentials: true })
 
             toast.success(res.data.msg)
 

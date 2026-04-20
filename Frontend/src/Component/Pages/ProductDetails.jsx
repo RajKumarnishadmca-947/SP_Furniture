@@ -7,6 +7,9 @@ import { AuthContext } from './AuthContext'
 import {toast} from "react-toastify"
 import "../CSS/ProductDetails.css"
 
+const url = import.meta.env.VITE_API_URL;
+
+
 
 const ProductDetails=()=> {
   const {id}=useParams()
@@ -30,7 +33,7 @@ const ProductDetails=()=> {
   useEffect(()=>{
     const getSingleProduct=async()=> {
       try {
-        const res=await axios.get(`http://localhost:5000/api/products/${id}`)
+        const res=await axios.get(`${url}/api/products/${id}`)
         setProduct(res.data)
       } catch{
         setError("Product not found or server error")
@@ -65,8 +68,7 @@ const ProductDetails=()=> {
     }
 
     try {
-      const res=await axios.post("http://localhost:5000/api/products/addcmnt",
-        {
+      const res=await axios.post(`${url}/api/products/addcmnt`,{
           pid: product._id,
           name: user.name,
           comm: comment,
@@ -104,7 +106,7 @@ const ProductDetails=()=> {
   try {
     setLoadingCart(true)
 
-    const res = await axios.post("http://localhost:5000/api/addcart", {
+    const res = await axios.post(`${url}/api/addcart`, {
       pid: product._id,
       uid: user._id,
       title: product.ptitle,
@@ -127,7 +129,7 @@ const ProductDetails=()=> {
 
   {/* Product */}
   <div className="pd-product">
-    <img src={`http://localhost:5000/productsImages/${product.pimage}`} alt={product.ptitle} />
+    <img src={`${url}/productsImages/${product.pimage}`} alt={product.ptitle} />
     <div className="pd-product-details">
       <h2>{product.ptitle}</h2>
       <p>{product.pdescription}</p>

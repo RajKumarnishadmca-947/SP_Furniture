@@ -4,6 +4,7 @@ import { AuthContext } from "./AuthContext"
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import "../CSS/AddToCart.css"
+const url = import.meta.env.VITE_API_URL;
 
 const AddToCart = () => {
   const { user, setUser } = useContext(AuthContext)
@@ -31,9 +32,7 @@ const AddToCart = () => {
   try {
     setLoading(true)
 
-    const { data } = await axios.get(
-      `http://localhost:5000/api/cart/${user.id}`
-    )
+    const { data } = await axios.get(`${url}/api/cart/${user.id}`)
 
     setCart(data || [])
     calculateTotal(data || [])
@@ -60,7 +59,7 @@ const AddToCart = () => {
   // ✅ Update quantity
   const updateQuantity = async (id, type) => {
     try {
-      await axios.put(`http://localhost:5000/api/${type}/${id}`)
+      await axios.put(`${url}/api/${type}/${id}`)
       getCart()
     } catch (err) {
       console.error("Quantity update error:", err)
@@ -71,7 +70,7 @@ const AddToCart = () => {
   // ✅ Remove item
   const removeItem = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/removeCart/${id}`)
+      await axios.delete(`${url}/api/removeCart/${id}`)
 
       const updatedCart = cart.filter(item => item._id !== id)
       setCart(updatedCart)
@@ -94,7 +93,7 @@ const AddToCart = () => {
     try {
       setPlacingOrder(true)
 
-      await axios.post("http://localhost:5000/api/order/place", {
+      await axios.post(`${url}/api/order/place`, {
         userId: user.id
       })
 
@@ -141,7 +140,7 @@ const AddToCart = () => {
             {cart.map((item) => (
               <div key={item._id} className="km-card">
                 <img
-                  src={`http://localhost:5000/productsImages/${item.img}`}
+                  src={`${url}/productsImages/${item.img}`}
                   alt={item.title}
                   className="product-img"
                 />

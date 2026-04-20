@@ -3,13 +3,16 @@ import axios from "axios"
 import { toast } from "react-toastify"
 import { useNavigate } from "react-router-dom"
 import '../CSS/ForgotPassword.css'
+
+const url = import.meta.env.VITE_API_URL;
+
 const ForgotPassword = () => {
   const [email, setEmail] = useState("")
   const navigate = useNavigate()
 
   const handleSubmit = async () => {
     try {
-      await axios.post("http://localhost:5000/users/forgot-password", { email })
+      await axios.post(`${url}/users/forgot-password`, { email })
       toast.success("OTP sent")
 
       navigate("/reset-password", { state: { email } })

@@ -24,10 +24,7 @@ const Register = () => {
     e.preventDefault()
 
     try {
-      const res = await axios.post(
-        "http://localhost:5000/users/register",
-        form
-      )
+      const res = await axios.post(`${url}/users/register`,form)
 
       toast.success(res.data.msg)
 

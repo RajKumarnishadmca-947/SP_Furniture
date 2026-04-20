@@ -4,6 +4,9 @@ import { toast } from 'react-toastify'
 import { AuthContext } from '../Pages/AuthContext'
 import { useNavigate } from 'react-router-dom'
 
+const url = import.meta.env.VITE_API_URL;
+
+
 const Message = () => {
   const [messages, setMessages] = useState([])
   const [filtered, setFiltered] = useState([])
@@ -30,7 +33,7 @@ const Message = () => {
   // ✅ Fetch messages
   const getMessages = async () => {
     try {
-      const res = await axios.get("http://localhost:5000/api/contacts/getcontact")
+      const res = await axios.get(`${url}/api/contacts/getcontact`)
       setMessages(res.data.data || [])
       setFiltered(res.data.data || [])
     } catch {
@@ -69,7 +72,7 @@ const Message = () => {
     if (!confirm) return
 
     try {
-      await axios.delete(`http://localhost:5000/api/contacts/delete/${id}`)
+      await axios.delete(`${url}/api/contacts/delete/${id}`)
 
       const updated = messages.filter(item => item._id !== id)
       setMessages(updated)
