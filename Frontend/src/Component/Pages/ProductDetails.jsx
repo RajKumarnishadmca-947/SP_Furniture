@@ -129,7 +129,7 @@ const ProductDetails=()=> {
 
   {/* Product */}
   <div className="pd-product">
-    <img src={`${url}/productsImages/${product.pimage}`} alt={product.ptitle} />
+    <img src={product.pimage?.startsWith("http")? product.pimage : `${url}/productsImages/${product.pimage}`}alt={product.ptitle}/>
     <div className="pd-product-details">
       <h2>{product.ptitle}</h2>
       <p>{product.pdescription}</p>
