@@ -71,10 +71,29 @@ const Navbar = () => {
 
       {/* LOGO */}
       <div id='logo'>
-        <NavLink to="/" onClick={closeMenu}>
-          <h3>Pragati_Furniture</h3>
-        </NavLink>
-      </div>
+  <NavLink to="/" onClick={closeMenu} className="logo">
+    
+    {/* ICON */}
+    <div className="logo-icon">
+  <svg viewBox="0 0 64 64">
+    
+    {/* Chair Icon */}
+    <rect x="14" y="28" width="36" height="10" rx="2"/>
+    <rect x="18" y="12" width="28" height="18" rx="3"/>
+    <rect x="16" y="38" width="6" height="14"/>
+    <rect x="42" y="38" width="6" height="14"/>
+    
+    </svg>
+  </div>
+
+    {/* TEXT */}
+    <div className="logo-text">
+      <span className="sp">S.P</span>
+      <span className="furniture">Furniture</span>
+    </div>
+
+      </NavLink>
+    </div>
 
       {/* HAMBURGER */}
       <div 
@@ -99,20 +118,16 @@ const Navbar = () => {
             <span className="username">
               👋 {user?.name || "User"}
             </span>
-
             <NavLink to='/' onClick={closeMenu}>Home</NavLink>
             <NavLink to="/seeproducts" onClick={closeMenu}>Products</NavLink>
             <NavLink to="/contact" onClick={closeMenu}>Contact</NavLink>
 
             {/* ✅ PROFESSIONAL CART */}
             <NavLink to="/cart" onClick={closeMenu} className="cart-link">
-              🛒 Cart
-              <span className="cart-badge">
-                {user?.cartlength ?? 0}
-              </span>
+              🛒 Cart<span className="cart-badge"> {user?.cartlength ?? 0}</span>
             </NavLink>
 
-            <NavLink to="/userorder" onClick={closeMenu}>Orders</NavLink>
+            <NavLink to="/userorder" onClick={closeMenu}>My Orders</NavLink>
 
             {/* ADMIN */}
             {user?.role === "admin" && (
